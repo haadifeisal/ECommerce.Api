@@ -9,3 +9,9 @@
 /ECommerce.Api/.vs/ECommerce.Api/FileContentIndex/43f3b640-e8e8-41e8-830d-f93c87937af4.vsidx
 /ECommerce.Api/.vs/ECommerce.Api/FileContentIndex/23af7209-fb4e-47ea-bcf0-9b97d8e28749.vsidx
 /ECommerce.Api/.vs/ECommerce.Api/v17/.suo
+*.dll
+*.BuildWithSkipAnalyzers
+*.cache
+*.pdb
+/ECommerce.Api/bin/Debug/net6.0/ECommerce.Api.dll
+/ECommerce.Api/bin/Debug/net6.0/ECommerce.Api.pdb
