@@ -362,5 +362,4 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 /ECommerce.Api/.vs/ECommerce.Api/config/*
-/ECommerce.Api/.vs/ECommerce.Api/config/applicationhost.config
-/ECommerce.Api/bin/Debug/net6.0/appsettings.Development.json
+/ECommerce.Api/bin/*
