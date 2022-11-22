@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "DC8qCTuSCmHWZ8S75aGEJ+UPp/mwqIGYzp3zWCFMbQ64ipthdKAi9H/HR1t49BB0MVpWqneWYD5Xt+dDfpBzGw==",
+  "dgSpecHash": "xIfKtUUv8K9yo79V5jOnfWQkyFbmWkS667cWzShVtsTjD4bAuB9Mk2A6ToEGp8iRhsyBOEszfFGBtP5OPUzpTw==",
   "success": true,
   "projectFilePath": "C:\\Utveckling\\Github\\ECommerce.Api\\ECommerce.Api\\ECommerce.Api.csproj",
   "expectedPackageFiles": [

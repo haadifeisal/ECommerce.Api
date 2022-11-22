@@ -1,7 +1,10 @@
-﻿namespace ECommerce.Api.Repositories.ECommerce.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace ECommerce.Api.Repositories.ECommerce.Models
 {
     public class Product
     {
+        [Key]
         public Guid Id { get; set; }
 
         public string Name { get; set; }
