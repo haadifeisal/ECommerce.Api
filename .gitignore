@@ -363,3 +363,4 @@ MigrationBackup/
 FodyWeavers.xsd
 /ECommerce.Api/.vs/ECommerce.Api/config/*
 /ECommerce.Api/bin/*
+/ECommerce.Api/obj
