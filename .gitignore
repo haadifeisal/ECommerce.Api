@@ -15,3 +15,4 @@
 *.pdb
 /ECommerce.Api/bin/Debug/net6.0/ECommerce.Api.dll
 /ECommerce.Api/bin/Debug/net6.0/ECommerce.Api.pdb
+*.vsidx
