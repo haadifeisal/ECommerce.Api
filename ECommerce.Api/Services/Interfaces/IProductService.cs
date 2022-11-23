@@ -4,8 +4,8 @@ namespace ECommerce.Api.Services.Interfaces
 {
     public interface IProductService
     {
-        IEnumerable<Product> GetProducts();
+        Task<IEnumerable<Product>> GetProducts();
 
-        Product GetProduct(Guid productId);
+        Task<Product> GetProduct(Guid productId);
     }
 }

@@ -15,9 +15,9 @@ namespace ECommerce.Api.Controllers
         }
 
         [HttpGet]
-        public ActionResult GetProducts()
+        public async Task<ActionResult> GetProducts()
         {
-            var products = _productService.GetProducts();
+            var products = await _productService.GetProducts();
 
             if(!products.Any()) {
                 return NoContent();
@@ -29,9 +29,9 @@ namespace ECommerce.Api.Controllers
 
         [HttpGet]
         [Route("{productId}")]
-        public ActionResult GetProduct([FromRoute] Guid productId)
+        public async Task<ActionResult> GetProduct([FromRoute] Guid productId)
         {
-            var product = _productService.GetProduct(productId);
+            var product = await _productService.GetProduct(productId);
 
             if (product == null)
             {

@@ -14,16 +14,16 @@ namespace ECommerce.Api.Repositories.ECommerce
             _context = context;
         }
 
-        public IEnumerable<Product> GetProducts()
+        public async Task<IEnumerable<Product>> GetProducts()
         {
-            var products = _context.Products.AsNoTracking().ToList();
+            var products = await _context.Products.AsNoTracking().ToListAsync();
 
             return products;
         }
 
-        public Product GetProduct(Guid productId)
+        public async Task<Product> GetProduct(Guid productId)
         {
-            var product = _context.Products.AsNoTracking().FirstOrDefault(x => x.Id == productId);
+            var product = await _context.Products.AsNoTracking().FirstOrDefaultAsync(x => x.Id == productId);
 
             if(product == null)
             {

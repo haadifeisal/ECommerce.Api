@@ -13,17 +13,17 @@ namespace ECommerce.Api.Services
             _productRepository = productRepository;
         }
 
-        public IEnumerable<Product> GetProducts() {
+        public async Task<IEnumerable<Product>> GetProducts() {
 
-            var products = _productRepository.GetProducts();
+            var products = await _productRepository.GetProducts();
 
             return products;
         }
 
-        public Product GetProduct(Guid productId)
+        public async Task<Product> GetProduct(Guid productId)
         {
 
-            var product = _productRepository.GetProduct(productId);
+            var product = await _productRepository.GetProduct(productId);
 
             return product;
         }

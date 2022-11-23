@@ -4,8 +4,8 @@ namespace ECommerce.Api.Repositories.ECommerce.Interfaces
 {
     public interface IProductRepository
     {
-        IEnumerable<Product> GetProducts();
+        Task<IEnumerable<Product>> GetProducts();
 
-        Product GetProduct(Guid productId);
+        Task<Product> GetProduct(Guid productId);
     }
 }
