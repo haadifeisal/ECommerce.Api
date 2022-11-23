@@ -361,3 +361,4 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/ECommerce.Api/obj/Debug/net6.0/ECommerce.Api.MvcApplicationPartsAssemblyInfo.cs
