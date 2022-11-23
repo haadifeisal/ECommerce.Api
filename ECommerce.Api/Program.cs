@@ -1,5 +1,9 @@
 using ECommerce.Api;
+using ECommerce.Api.Repositories.ECommerce;
 using ECommerce.Api.Repositories.ECommerce.Data;
+using ECommerce.Api.Repositories.ECommerce.Interfaces;
+using ECommerce.Api.Services;
+using ECommerce.Api.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,7 +16,9 @@ builder.Services.AddDbContext<ECommerceContext>(opt =>
 });
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IProductService, ProductService>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -25,6 +31,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+var scope = app.Services.CreateScope();
+var context = scope.ServiceProvider.GetRequiredService<ECommerceContext>();
+
+context.Database.Migrate();
+DbInitializer.Initialize(context);
 
 app.UseHttpsRedirection();
 

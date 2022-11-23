@@ -17,6 +17,8 @@ namespace ECommerce.Api.Repositories.ECommerce.Models
 
         public string Brand { get; set; }
 
+        public string Type { get; set; }
+
         public int QuantityInStock { get; set; }
     }
 }

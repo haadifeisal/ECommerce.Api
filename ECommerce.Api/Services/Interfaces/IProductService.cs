@@ -1,8 +1,8 @@
 ﻿using ECommerce.Api.Repositories.ECommerce.Models;
 
-namespace ECommerce.Api.Repositories.ECommerce.Interfaces
+namespace ECommerce.Api.Services.Interfaces
 {
-    public interface IProductRepository
+    public interface IProductService
     {
         IEnumerable<Product> GetProducts();
 
