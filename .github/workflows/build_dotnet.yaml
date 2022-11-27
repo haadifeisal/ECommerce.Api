@@ -24,7 +24,7 @@ jobs:
         working-directory: ECommerce.Api/
        
       - name: Build
-        run: dotnet build --configuration Release --no-restore
+        run: dotnet build --configuration Release -warnaserror --no-restore
         working-directory: ECommerce.Api/
        
       - uses: actions/checkout@v1
