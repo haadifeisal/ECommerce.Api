@@ -26,12 +26,3 @@ jobs:
       - name: Build
         run: dotnet build --configuration Release -warnaserror --no-restore
         working-directory: ECommerce.Api/
-       
-      - uses: actions/checkout@v1
-      - name: Docker Login
-        run: docker login -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_PASSWORD }}
-      
-      - name: Docker Build
-        run: docker build -t ${{ secrets.DOCKER_USER }}/ecommerce-api:${{ github.sha }} .
-      - name: Docker Push Image
-        run: docker push ${{ secrets.DOCKER_USER }}/ecommerce-api:${{ github.sha }}
