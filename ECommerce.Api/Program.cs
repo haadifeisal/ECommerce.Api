@@ -15,6 +15,8 @@ builder.Services.AddDbContext<ECommerceContext>(opt =>
     opt.UseSqlServer(builder.Configuration.GetValue<string>(nameof(AppSettings.ECommerceConnectionString)));
 });
 
+builder.Services.AddCors();
+
 builder.Services.AddControllers();
 
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
@@ -39,6 +41,11 @@ context.Database.Migrate();
 DbInitializer.Initialize(context);
 
 app.UseHttpsRedirection();
+
+app.UseCors(opt =>
+{
+    opt.AllowAnyHeader().AllowAnyHeader().WithOrigins("http://localhost:3000");
+});
 
 app.UseAuthorization();
 
