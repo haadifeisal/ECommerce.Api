@@ -1,4 +1,5 @@
 using ECommerce.Api;
+using ECommerce.Api.Extensions;
 using ECommerce.Api.Repositories.ECommerce;
 using ECommerce.Api.Repositories.ECommerce.Data;
 using ECommerce.Api.Repositories.ECommerce.Interfaces;
@@ -7,7 +8,7 @@ using ECommerce.Api.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
-var builder = WebApplication.CreateBuilder(args);
+var builder = WebApplication.CreateBuilder(args).ConfigureSecrets();
 
 // Add services to the container.
 
