@@ -36,7 +36,7 @@ namespace ECommerce.Api.Controllers
         [HttpGet("server-error")]
         public ActionResult GetServerError()
         {
-            throw new Exception("This is a server error");
+            return StatusCode(StatusCodes.Status500InternalServerError);
         }
 
     }
