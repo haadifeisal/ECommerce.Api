@@ -18,7 +18,7 @@ namespace ECommerce.Api.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet]
+        [HttpGet(Name = "GetBasket")]
         public async Task<ActionResult<BasketResponseDto>> GetBasket()
         {
             var buyerId = Guid.Parse(Request.Cookies["buyerId"].ToString());
@@ -35,7 +35,7 @@ namespace ECommerce.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> AddItemToBasket(Guid productId, int quantity)
+        public async Task<ActionResult<BasketResponseDto>> AddItemToBasket(Guid productId, int quantity)
         {
             var cookie = Request.Cookies["buyerId"];
             var buyerId = Guid.Empty;
@@ -51,18 +51,39 @@ namespace ECommerce.Api.Controllers
 
             if (basket != null)
             {
-                return StatusCode(201);
+                var mappedBasket = _mapper.Map<BasketResponseDto>(basket);
+
+                return CreatedAtRoute("GetBasket", mappedBasket);
             }
 
             return BadRequest(new ProblemDetails{Title = "Problem saving item to basket"});
         }
 
-        /*[HttpDelete]
-        public async Task<ActionResult> RemoveBasketItem(int productId, int quantity)
+        [HttpDelete]
+        public async Task<ActionResult> RemoveBasketItem(Guid productId, int quantity)
         {
-            
-            return Ok();
-        }*/
+            var cookie = Request.Cookies["buyerId"];
+            var buyerId = Guid.Empty;
+
+            if (!String.IsNullOrEmpty(cookie))
+            {
+                buyerId = Guid.Parse(cookie);
+            }
+
+            var removedItem = await _basketService.RemoveItemFromBasket(buyerId, productId, quantity);
+
+            if(removedItem == null)
+            {
+                return NotFound();
+            }
+
+            if (removedItem)
+            {
+                return Ok();
+            }
+
+            return BadRequest(new ProblemDetails { Title = "Problem removing item from the basket" });
+        }
 
     }
 }

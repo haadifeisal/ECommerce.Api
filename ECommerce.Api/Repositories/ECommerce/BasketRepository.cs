@@ -62,13 +62,13 @@ namespace ECommerce.Api.Repositories.ECommerce
 
             if(await _context.SaveChangesAsync() == 1)
             {
-                return basket;
+                return await GetBasketByBuyerId(buyerId);
             }
 
             return null;
         }
 
-        public async Task<bool> RemoveItem(Guid buyerId, Guid productId, int quantity)
+        public async Task<bool> RemoveItemFromBasket(Guid buyerId, Guid productId, int quantity)
         {
             var basket = await GetBasketByBuyerId(buyerId);
 

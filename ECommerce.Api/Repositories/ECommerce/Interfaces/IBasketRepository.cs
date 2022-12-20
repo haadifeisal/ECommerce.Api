@@ -7,6 +7,6 @@ namespace ECommerce.Api.Repositories.ECommerce.Interfaces
         Task<Basket> GetBasketByBuyerId(Guid buyerId);
         Task<BasketItem> GetBasketItem(Guid basketId, Guid productId);
         Task<Basket> AddItemToBasket(Guid buyerId, Guid productId, int quantity);
-        Task<bool> RemoveItem(Guid buyerId, Guid productId, int quantity);
+        Task<bool> RemoveItemFromBasket(Guid buyerId, Guid productId, int quantity);
     }
 }

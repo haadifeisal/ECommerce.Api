@@ -27,5 +27,11 @@ namespace ECommerce.Api.Services
             return basket;
         }
 
+        public async Task<bool> RemoveItemFromBasket(Guid buyerId, Guid productId, int quantity)
+        {
+            var removedItem = await _basketRepository.RemoveItemFromBasket(buyerId, productId, quantity);
+
+            return removedItem;
+        }
     }
 }
