@@ -85,3 +85,4 @@ C:\Utveckling\Github\ECommerce.Api\ECommerce.Api\obj\Debug\net6.0\refint\ECommer
 C:\Utveckling\Github\ECommerce.Api\ECommerce.Api\obj\Debug\net6.0\ECommerce.Api.pdb
 C:\Utveckling\Github\ECommerce.Api\ECommerce.Api\obj\Debug\net6.0\ECommerce.Api.genruntimeconfig.cache
 C:\Utveckling\Github\ECommerce.Api\ECommerce.Api\obj\Debug\net6.0\ref\ECommerce.Api.dll
+C:\Utveckling\Github\ECommerce.Api\ECommerce.Api\bin\Debug\net6.0\AutoMapper.dll

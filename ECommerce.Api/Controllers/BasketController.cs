@@ -1,4 +1,6 @@
-﻿using ECommerce.Api.Services;
+﻿using AutoMapper;
+using ECommerce.Api.DTOs.ResponseDtos;
+using ECommerce.Api.Services;
 using ECommerce.Api.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,13 +11,15 @@ namespace ECommerce.Api.Controllers
     public class BasketController : ControllerBase
     {
         private readonly IBasketService _basketService;
-        public BasketController(IBasketService basketService)
+        private readonly IMapper _mapper;
+        public BasketController(IBasketService basketService, IMapper mapper)
         {
             _basketService = basketService;
+            _mapper = mapper;
         }
 
         [HttpGet]
-        public async Task<ActionResult> GetBasket()
+        public async Task<ActionResult<BasketResponseDto>> GetBasket()
         {
             var buyerId = Guid.Parse(Request.Cookies["buyerId"].ToString());
             var basket = await _basketService.GetBasket(buyerId);
@@ -25,13 +29,21 @@ namespace ECommerce.Api.Controllers
                 return NotFound();
             }
 
-            return Ok(basket);
+            var mappedBasket = _mapper.Map<BasketResponseDto>(basket);
+
+            return Ok(mappedBasket);
         }
 
         [HttpPost]
         public async Task<ActionResult> AddItemToBasket(Guid productId, int quantity)
         {
-            var buyerId = Guid.Parse(Request.Cookies["buyerId"].ToString());
+            var cookie = Request.Cookies["buyerId"];
+            var buyerId = Guid.Empty;
+
+            if (!String.IsNullOrEmpty(cookie))
+            {
+                buyerId = Guid.Parse(cookie);
+            }
 
             var basket = await _basketService.AddItemsToBasket(buyerId, productId, quantity);
             var cookieOptions = new CookieOptions { IsEssential = true, Expires = DateTime.Now.AddDays(30) };

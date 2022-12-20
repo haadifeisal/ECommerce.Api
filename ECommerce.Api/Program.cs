@@ -1,4 +1,6 @@
+using AutoMapper;
 using ECommerce.Api;
+using ECommerce.Api.DTOs.Configuration;
 using ECommerce.Api.Extensions;
 using ECommerce.Api.Repositories.ECommerce;
 using ECommerce.Api.Repositories.ECommerce.Data;
@@ -24,6 +26,12 @@ builder.Services.AddDbContext<ECommerceContext>(opt =>
     opt.UseSqlServer(appSettings.Value.ECommerceConnectionString);
 });
 
+var mappingConfig = new MapperConfiguration(mc =>
+{
+    mc.AddProfile(new MapConfiguration());
+});
+var mapper = mappingConfig.CreateMapper();
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(allowedOrigins, builder =>
@@ -35,6 +43,7 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddControllers();
+builder.Services.AddSingleton(mapper);
 
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IProductService, ProductService>();

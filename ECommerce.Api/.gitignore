@@ -479,3 +479,7 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+
+# Ignore any files in /bin and /obj Folders
+**bin/*
+**/obj/*

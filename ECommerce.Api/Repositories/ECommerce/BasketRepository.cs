@@ -22,6 +22,16 @@ namespace ECommerce.Api.Repositories.ECommerce
             return basket;
         }
 
+        public async Task<BasketItem> GetBasketItem(Guid basketId, Guid productId)
+        {
+            var item = await _context.BasketItems
+                .Include(i => i.Basket)
+                .Include(i => i.Product)
+                .FirstOrDefaultAsync(x => x.BasketId == basketId && x.ProductId == productId);
+
+            return item;
+        }
+
         public async Task<Basket> AddItemToBasket(Guid buyerId, Guid productId, int quantity)
         {
             var basket = await GetBasketByBuyerId(buyerId);
@@ -31,7 +41,7 @@ namespace ECommerce.Api.Repositories.ECommerce
                 basket = await CreateBasket();
             }
 
-            var item = await _context.BasketItems.FirstOrDefaultAsync(x => x.BasketId == basket.Id && x.ProductId == productId);
+            var item = await GetBasketItem(basket.Id, productId);
 
             if (item != null)
             {
@@ -64,9 +74,9 @@ namespace ECommerce.Api.Repositories.ECommerce
 
             if(basket != null)
             {
-                var item = await _context.BasketItems.FirstOrDefaultAsync(x => x.BasketId == basket.Id && x.ProductId == productId);
-                
-                if(item != null)
+                var item = await GetBasketItem(basket.Id, productId);
+
+                if (item != null)
                 {
                     if(item.Quantity == 0)
                     {
@@ -77,8 +87,7 @@ namespace ECommerce.Api.Repositories.ECommerce
                         item.Quantity -= quantity;
                     }
 
-                    await _context.SaveChangesAsync();
-                    return true;
+                    return await _context.SaveChangesAsync() == 1 ? true : false;
                 }
 
                 return false;
@@ -99,6 +108,5 @@ namespace ECommerce.Api.Repositories.ECommerce
 
             return _context.SaveChanges() == 1 ? basket : null;
         }
-
     }
 }
