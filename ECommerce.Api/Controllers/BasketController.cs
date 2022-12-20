@@ -42,7 +42,7 @@ namespace ECommerce.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<BasketResponseDto>> AddItemToBasket(Guid productId, int quantity)
+        public async Task<ActionResult<BasketResponseDto>> AddItemToBasket([FromQuery] Guid productId, [FromQuery] int quantity)
         {
             var cookie = Request.Cookies["buyerId"];
             var buyerId = Guid.Empty;

@@ -13,6 +13,13 @@ namespace ECommerce.Api.Repositories.ECommerce
             _context = context;
         }
 
+        public async Task<Basket> GetBasket(Guid basketId)
+        {
+            var basket = await _context.Baskets.AsNoTracking().Include(i => i.Items).ThenInclude(i => i.Product).FirstOrDefaultAsync(x => x.Id == basketId);
+
+            return basket;
+        }
+
         public async Task<Basket> GetBasketByBuyerId(Guid buyerId)
         {
             var basket = await _context.Baskets.AsNoTracking()
@@ -63,7 +70,7 @@ namespace ECommerce.Api.Repositories.ECommerce
 
             if(await _context.SaveChangesAsync() == 1)
             {
-                return await GetBasketByBuyerId(buyerId);
+                return await GetBasket(basket.Id);
             }
 
             return null;
