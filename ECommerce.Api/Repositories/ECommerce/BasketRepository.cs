@@ -17,7 +17,8 @@ namespace ECommerce.Api.Repositories.ECommerce
         {
             var basket = await _context.Baskets.AsNoTracking()
                 .Include(i => i.Items)
-                .ThenInclude(i => i.Product).FirstOrDefaultAsync(x => x.BuyerId == buyerId);
+                .ThenInclude(i => i.Product)
+                .FirstOrDefaultAsync(x => x.BuyerId == buyerId);
 
             return basket;
         }
@@ -43,7 +44,7 @@ namespace ECommerce.Api.Repositories.ECommerce
 
             var item = await GetBasketItem(basket.Id, productId);
 
-            if (item != null)
+            if(item != null)
             {
                 item.Quantity += quantity;
             }

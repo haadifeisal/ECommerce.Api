@@ -21,7 +21,14 @@ namespace ECommerce.Api.Controllers
         [HttpGet(Name = "GetBasket")]
         public async Task<ActionResult<BasketResponseDto>> GetBasket()
         {
-            var buyerId = Guid.Parse(Request.Cookies["buyerId"].ToString());
+            var cookie = Request.Cookies["buyerId"];
+            var buyerId = Guid.Empty;
+
+            if (!String.IsNullOrEmpty(cookie))
+            {
+                buyerId = Guid.Parse(cookie);
+            }
+
             var basket = await _basketService.GetBasket(buyerId);
 
             if (basket == null)
@@ -46,11 +53,12 @@ namespace ECommerce.Api.Controllers
             }
 
             var basket = await _basketService.AddItemsToBasket(buyerId, productId, quantity);
-            var cookieOptions = new CookieOptions { IsEssential = true, Expires = DateTime.Now.AddDays(30) };
-            Response.Cookies.Append("buyerId", basket.BuyerId.ToString(), cookieOptions);
 
             if (basket != null)
             {
+                var cookieOptions = new CookieOptions { IsEssential = true, Expires = DateTime.Now.AddDays(30) };
+                Response.Cookies.Append("buyerId", basket.BuyerId.ToString(), cookieOptions);
+
                 var mappedBasket = _mapper.Map<BasketResponseDto>(basket);
 
                 return CreatedAtRoute("GetBasket", mappedBasket);
@@ -60,7 +68,7 @@ namespace ECommerce.Api.Controllers
         }
 
         [HttpDelete]
-        public async Task<ActionResult> RemoveBasketItem(Guid productId, int quantity)
+        public async Task<ActionResult> RemoveItemFromBasket(Guid productId, int quantity)
         {
             var cookie = Request.Cookies["buyerId"];
             var buyerId = Guid.Empty;
@@ -77,7 +85,7 @@ namespace ECommerce.Api.Controllers
                 return NotFound();
             }
 
-            if (removedItem)
+            if(removedItem)
             {
                 return Ok();
             }
